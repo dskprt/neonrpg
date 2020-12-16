@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 
 using SysCon = System.Console;
+using neonrpg.Utilities;
 
 namespace neonrpg {
 
@@ -47,6 +48,26 @@ namespace neonrpg {
         }
 
         private static void Update() {
+            //if (f) {
+            //    if (p < 100) {
+            //        p += 0.0025f;
+            //    } else {
+            //        p = 99.975f;
+            //        f = false;
+            //    }
+            //} else {
+            //    if (p > 0) {
+            //        p -= 0.0025f;
+            //    } else {
+            //        p = 0.0025f;
+            //        f = true;
+            //    }
+            //}
+
+            //if(p < 100) {
+            //    p += 0.001f;
+            //}
+
             if (SysCon.KeyAvailable) {
                 ConsoleKeyInfo key = SysCon.ReadKey(true);
                 CurrentScreen.Input(key);
@@ -72,25 +93,49 @@ namespace neonrpg {
             }
         }
 
-        static int wx = 8;
-        static int wy = 8;
-        static int ww = 15;
-        static int wh = 10;
+        //static int wx = 8;
+        //static int wy = 8;
+        //static int ww = 15;
+        //static int wh = 10;
+
+        //public static Color Rainbow(float progress) {
+        //    float div = (Math.Abs(progress % 1) * 6);
+        //    int ascending = (int)((div % 1) * 255);
+        //    int descending = 255 - ascending;
+
+        //    switch ((int)div) {
+        //        case 0:
+        //            return new Color("255", ascending.ToString(), "0");
+        //        case 1:
+        //            return new Color(descending.ToString(), "255", "0");
+        //        case 2:
+        //            return new Color("0", "255", ascending.ToString());
+        //        case 3:
+        //            return new Color("0", descending.ToString(), "255");
+        //        case 4:
+        //            return new Color(ascending.ToString(), "0", "255");
+        //        default: // case 5:
+        //            return new Color("255", "0", descending.ToString());
+        //    }
+        //}
+
+        //static float p = 0;
+        //static bool f = true;
 
         private static void Draw() {
-            Console.Clear(ConsoleColor.Black);
+            Console.Clear(Color.BLACK);
             CurrentScreen.Render();
 
-            //Console.Fill(' ', wx, wy, ww, wh, ConsoleColor.Green);
-            //for (int y1 = 0; y1 < console.Height; y1++) {
-            //    for (int x1 = 0; x1 < console.Width; x1++) {
-            //        console.DrawChar('.', x1, y1, (ConsoleColor)values.GetValue(random.Next(values.Length)), (ConsoleColor)values.GetValue(random.Next(values.Length)));
+            //Console.Fill(' ', wx, wy, ww, wh, Color.GREEN);
+            //for (int y1 = 1; y1 < Console.Height - 1; y1++) {
+            //    for (int x1 = 0; x1 < Console.Width; x1++) {
+            //        Console.DrawChar(' ', x1, y1, Rainbow(p), Rainbow(p));
             //    }
             //}
 
-            //Console.DrawChar('H', x, y, ConsoleColor.White, ConsoleColor.Black);
-            //Console.DrawChar('i', x + 1, y, ConsoleColor.White, ConsoleColor.Black);
-            //Console.DrawChar('!', x + 2, y, ConsoleColor.White, ConsoleColor.Black);
+            //Console.DrawChar('H', x, y, Color.WHITE, Color.BLACK);
+            //Console.DrawChar('i', x + 1, y, Color.WHITE, Color.BLACK);
+            //Console.DrawChar('!', x + 2, y, Color.WHITE, Color.BLACK);
 
             FramesRendered++;
 
@@ -102,7 +147,7 @@ namespace neonrpg {
                 LastTime = DateTime.Now;
             }
 
-            Console.DrawString("FPS: " + FPS.ToString(), 0, 0, ConsoleColor.Green, ConsoleColor.Black);
+            Console.DrawString("FPS: " + FPS.ToString(), 0, 0, Color.GREEN, Color.BLACK);
         }
 
         public static void OpenScreen(Screen screen) {

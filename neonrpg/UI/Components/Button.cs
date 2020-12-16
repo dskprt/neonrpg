@@ -1,4 +1,5 @@
-﻿using System;
+﻿using neonrpg.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,13 +9,13 @@ namespace neonrpg.UI.Components {
 
         public string Text { get; set; }
 
-        public ConsoleColor Foreground { get; set; }
-        public ConsoleColor Background { get; set; }
+        public Color Foreground { get; set; }
+        public Color Background { get; set; }
 
         private Action<Button> Action { get; }
 
-        public Button(int id, string text, int x, int y, Action<Button> action, ConsoleColor foreground = ConsoleColor.White,
-                      ConsoleColor background = ConsoleColor.Black) : base(id, x, y) {
+        public Button(int id, string text, int x, int y, Action<Button> action, Color foreground,
+                      Color background) : base(id, x, y) {
             Text = text;
             Action = action;
             Foreground = foreground;
@@ -22,7 +23,7 @@ namespace neonrpg.UI.Components {
         }
 
         public override void Render() {
-            if(Selected) {
+            if (Selected) {
                 NeonRPG.Console.DrawString("[" + Text + "]", X, Y, Background, Foreground);
             } else {
                 NeonRPG.Console.DrawString("[" + Text + "]", X, Y, Foreground, Background);
@@ -30,7 +31,7 @@ namespace neonrpg.UI.Components {
         }
 
         public override void Input(ConsoleKeyInfo keyInfo) {
-            if(keyInfo.Key == ConsoleKey.Enter) {
+            if (keyInfo.Key == ConsoleKey.Enter) {
                 Action(this);
             }
         }

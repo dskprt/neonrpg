@@ -1,4 +1,5 @@
 ﻿using neonrpg.UI.Components;
+using neonrpg.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +17,7 @@ namespace neonrpg.UI.Screens {
 
         public override void Initialize() {
             int titleX = (NeonRPG.Console.Width / 2) - (title.Length / 2);
-            this.components.Add(new Label(title, titleX, 1));
+            this.components.Add(new Label(title, titleX, 1, Color.WHITE, Color.BLACK));
 
             int btn0X = (NeonRPG.Console.Width / 2) - (btn0.Length / 2);
             int btn1X = (NeonRPG.Console.Width / 2) - (btn1.Length / 2);
@@ -26,16 +27,16 @@ namespace neonrpg.UI.Screens {
 
             this.inputComponents.Add(new Button(0, btn0, btn0X, y, btn => {
                 Debug.WriteLine(btn0);
-            }));
+            }, Color.WHITE, Color.BLACK));
 
             this.inputComponents.Add(new Button(1, btn1, btn1X, y + 1, btn => {
                 Debug.WriteLine(btn1);
-            }));
+            }, Color.WHITE, Color.BLACK));
 
             this.inputComponents.Add(new Button(2, btn2, btn2X, y + 2, btn => {
                 Debug.WriteLine(btn2);
                 NeonRPG.Shutdown();
-            }));
+            }, Color.WHITE, Color.BLACK));
 
             base.Initialize();
         }
