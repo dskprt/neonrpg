@@ -16,7 +16,6 @@ namespace neonrpg.IO.Impl {
         };
 
         private CHAR_INFO[] Buffer { get; set; }
-        private CHAR_INFO[] PrevBuffer { get; set; }
         private IntPtr Handle { get; set; }
 
         private COORD bufferSize;
@@ -25,7 +24,6 @@ namespace neonrpg.IO.Impl {
 
         public Win32Console(int width, int height) : base(width, height) {
             Buffer = Array<CHAR_INFO>.Empty(width * height);
-            PrevBuffer = Array<CHAR_INFO>.Empty(width * height);
             Handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
             Console.SetWindowSize(width, height);
@@ -66,9 +64,10 @@ namespace neonrpg.IO.Impl {
             Buffer[index].AsciiChar = c;
         }
 
-        //TODO implement this
         public override void DrawString(string str, int x, int y, ConsoleColor foreground, ConsoleColor background) {
-            throw new NotImplementedException();
+            for(int i = 0; i < str.Length; i++) {
+                DrawChar(str[i], x + i, y, foreground, background);
+            }
         }
 
         public override void Fill(char c, int x, int y, int w, int h, ConsoleColor color) {

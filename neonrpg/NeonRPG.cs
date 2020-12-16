@@ -1,91 +1,100 @@
 ﻿using neonrpg.UI;
 using neonrpg.UI.Screens;
-using neonrpg.Utilities;
 using System;
 using neonrpg.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
+using SysCon = System.Console;
+
 namespace neonrpg {
 
     class NeonRPG {
 
-        public static NeonRPG Instance { get; set; }
+        public static Screen CurrentScreen { get; set; }
+        public static NeonConsole Console { get; set; }
+        private static bool Running { get; set; }
 
-        public bool Running { get; set; }
+        private static double Delta { get; set; }
+        private static DateTime LastTime { get; set; }
+        private static int FramesRendered { get; set; }
+        private static int FPS { get; set; }
 
-        private DateTime LastTime { get; set; }
-        private int FramesRendered { get; set; }
-        private int FPS { get; set; }
-        private NeonConsole NConsole { get; set; }
+        static int x = 11;
+        static int y = 11;
 
-        int x = 11;
-        int y = 11;
+        //Array values;
+        //Random random;
 
-        public NeonRPG() {
-            Instance = this;
-        }
-
-        Array values;
-        Random random;
-
-        public void Run() {
-            values = Enum.GetValues(typeof(ConsoleColor));
-            random = new Random();
-            
+        public static void Run() {
             Running = true;
 
-            NConsole = NeonConsole.GetConsole("win", 90, 40);
+            SysCon.Clear();
+            Console = NeonConsole.GetConsole("win", 120, 30);
+            OpenScreen(new TitleScreen());
+
+            //values = Enum.GetValues(typeof(ConsoleColor));
+            //random = new Random();
 
             while (Running) {
                 Update();
                 Draw();
-                NConsole.Draw();
+                Console.Draw();
 
                 //Thread.Sleep(1000 / 60);
             }
         }
 
-        private void Update() {
-            if (Console.KeyAvailable) {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-                switch (key.Key) {
-                    case ConsoleKey.S:
-                        y++;
-                        wy--;
-                        break;
-                    case ConsoleKey.W:
-                        y--;
-                        wy++;
-                        break;
-                    case ConsoleKey.A:
-                        x--;
-                        wx++;
-                        break;
-                    case ConsoleKey.D:
-                        x++;
-                        wx--;
-                        break;
-                }
+        private static void Update() {
+            if (SysCon.KeyAvailable) {
+                ConsoleKeyInfo key = SysCon.ReadKey(true);
+                CurrentScreen.Input(key);
+
+                //switch (key.Key) {
+                //    case ConsoleKey.S:
+                //        y++;
+                //        wy--;
+                //        break;
+                //    case ConsoleKey.W:
+                //        y--;
+                //        wy++;
+                //        break;
+                //    case ConsoleKey.A:
+                //        x--;
+                //        wx++;
+                //        break;
+                //    case ConsoleKey.D:
+                //        x++;
+                //        wx--;
+                //        break;
+                //}
             }
         }
 
-        int wx = 8;
-        int wy = 8;
-        int ww = 15;
-        int wh = 10;
+        static int wx = 8;
+        static int wy = 8;
+        static int ww = 15;
+        static int wh = 10;
 
-        private void Draw() {
-            NConsole.Clear(ConsoleColor.Black);
+        private static void Draw() {
+            Console.Clear(ConsoleColor.Black);
+            CurrentScreen.Render();
 
-            NConsole.Fill(' ', wx, wy, ww, wh, ConsoleColor.Green);
+            //Console.Fill(' ', wx, wy, ww, wh, ConsoleColor.Green);
+            //for (int y1 = 0; y1 < console.Height; y1++) {
+            //    for (int x1 = 0; x1 < console.Width; x1++) {
+            //        console.DrawChar('.', x1, y1, (ConsoleColor)values.GetValue(random.Next(values.Length)), (ConsoleColor)values.GetValue(random.Next(values.Length)));
+            //    }
+            //}
 
-            NConsole.DrawChar('H', x, y, ConsoleColor.White, ConsoleColor.Black);
-            NConsole.DrawChar('i', x + 1, y, ConsoleColor.White, ConsoleColor.Black);
-            NConsole.DrawChar('!', x + 2, y, ConsoleColor.White, ConsoleColor.Black);
+            //Console.DrawChar('H', x, y, ConsoleColor.White, ConsoleColor.Black);
+            //Console.DrawChar('i', x + 1, y, ConsoleColor.White, ConsoleColor.Black);
+            //Console.DrawChar('!', x + 2, y, ConsoleColor.White, ConsoleColor.Black);
 
             FramesRendered++;
+
+            Delta = (DateTime.Now - LastTime).TotalSeconds;
 
             if ((DateTime.Now - LastTime).TotalSeconds >= 1) {
                 FPS = FramesRendered;
@@ -93,7 +102,17 @@ namespace neonrpg {
                 LastTime = DateTime.Now;
             }
 
-            Console.Title = FPS.ToString();
+            Console.DrawString("FPS: " + FPS.ToString(), 0, 0, ConsoleColor.Green, ConsoleColor.Black);
+        }
+
+        public static void OpenScreen(Screen screen) {
+            screen.Initialize();
+            CurrentScreen = screen;
+        }
+
+        public static void Shutdown() {
+            Running = false;
+            SysCon.Clear();
         }
     }
 }
