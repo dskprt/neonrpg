@@ -10,7 +10,9 @@ namespace neonrpg.IO.Impl {
 
     class Win32Console : NeonConsole {
 
-        private uint written;
+        private static readonly StringBuilder sb = new StringBuilder();
+
+        private static uint written;
 
         private string[] Buffer { get; set; }
         private IntPtr Handle { get; set; }
@@ -50,7 +52,35 @@ namespace neonrpg.IO.Impl {
 
             if (!(index >= 0 && index < Buffer.Length)) return;
 
-            Buffer[index] = background.AsAnsiBackground() + foreground.AsAnsiForeground() + c;
+            sb.Clear();
+
+            if(background.Transparent) {
+                string str = Buffer[index];
+                // get the 2nd occurence of ESC
+                int i = str.IndexOf('\u001b', 2); // we can hard code the start index since the structure never changes
+
+                // retrieve only the background (which is first)
+                str = str.Substring(0, i);
+                sb.Append(str);
+            } else {
+                sb.Append(foreground.AsAnsiBackground());
+            }
+
+            if(foreground.Transparent) {
+                string str = Buffer[index];
+                // get the 2nd occurence of ESC
+                int i = str.IndexOf('\u001b', 2); // we can hard code the start index since the structure never changes
+
+                // retrieve only the foreground (which is second)
+                str = str.Substring(i, str.Length - 2); // -2 since the last element is the character
+                sb.Append(str);
+            } else {
+                sb.Append(foreground.AsAnsiForeground());
+            }
+
+            sb.Append(c);
+
+            Buffer[index] = sb.ToString();
         }
 
         public override void DrawString(string str, int x, int y, Color foreground, Color background) {
