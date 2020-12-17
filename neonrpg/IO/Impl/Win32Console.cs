@@ -48,13 +48,15 @@ namespace neonrpg.IO.Impl {
         }
 
         public override void DrawChar(char c, int x, int y, Color foreground, Color background) {
+            if (x < 0 || y < 0) return;
+
             int index = (y * Width) + x;
 
             if (!(index >= 0 && index < Buffer.Length)) return;
 
             sb.Clear();
 
-            if(background.Transparent) {
+            if (background.Transparent) {
                 string str = Buffer[index];
                 // get the 2nd occurence of ESC
                 int i = str.IndexOf('\u001b', 2); // we can hard code the start index since the structure never changes
@@ -63,10 +65,10 @@ namespace neonrpg.IO.Impl {
                 str = str.Substring(0, i);
                 sb.Append(str);
             } else {
-                sb.Append(foreground.AsAnsiBackground());
+                sb.Append(background.AsAnsiBackground());
             }
 
-            if(foreground.Transparent) {
+            if (foreground.Transparent) {
                 string str = Buffer[index];
                 // get the 2nd occurence of ESC
                 int i = str.IndexOf('\u001b', 2); // we can hard code the start index since the structure never changes

@@ -13,10 +13,12 @@ namespace neonrpg.UI {
         private int Selection { get; set; }
 
         public virtual void Initialize() {
-            inputComponents.Sort((a, b) => a.Id.CompareTo(b.Id));
+            if(inputComponents.Count != 0) {
+                inputComponents.Sort((a, b) => a.Id.CompareTo(b.Id));
 
-            Selection = 0;
-            inputComponents[Selection].Selected = true;
+                Selection = 0;
+                inputComponents[Selection].Selected = true;
+            }
         }
 
         public virtual void Render() {
@@ -25,6 +27,8 @@ namespace neonrpg.UI {
         }
 
         public virtual void Input(ConsoleKeyInfo keyInfo) {
+            if (inputComponents.Count == 0) return;
+
             switch (keyInfo.Key) {
                 case ConsoleKey.Tab:
                 case ConsoleKey.DownArrow:

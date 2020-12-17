@@ -27,6 +27,7 @@ namespace neonrpg.UI.Screens {
 
             this.inputComponents.Add(new Button(0, btn0, btn0X, y, btn => {
                 Debug.WriteLine(btn0);
+                NeonRPG.OpenScreen(new GameScreen());
             }, Color.WHITE, Color.BLACK));
 
             this.inputComponents.Add(new Button(1, btn1, btn1X, y + 1, btn => {
