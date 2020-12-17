@@ -59,5 +59,15 @@ namespace neonrpg.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] world {
+            get {
+                object obj = ResourceManager.GetObject("world", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

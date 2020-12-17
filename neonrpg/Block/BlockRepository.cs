@@ -8,15 +8,15 @@ namespace neonrpg.Block {
 
     class BlockRepository {
 
-        public static readonly Dictionary<uint, Type> REGISTRY = new Dictionary<uint, Type>() {
+        public static readonly Dictionary<byte, Type> REGISTRY = new Dictionary<byte, Type>() {
             { 0, typeof(BlockGrass) }, { 1, typeof(BlockFlower) }, { 2, typeof(BlockBrick) }
         };
 
-        public static BaseBlock CreateFromId(uint id, uint x, uint y, byte data = 0) {
-            ConstructorInfo constructor = REGISTRY[id].GetConstructor(new Type[] { typeof(uint), typeof(uint), typeof(byte) });
+        public static BaseBlock CreateFromId(byte id, ushort x, ushort y, byte data = 0) {
+            ConstructorInfo constructor = REGISTRY[id].GetConstructor(new Type[] { typeof(ushort), typeof(ushort), typeof(byte) });
 
             if(constructor == null) {
-                constructor = REGISTRY[id].GetConstructor(new Type[] { typeof(uint), typeof(uint) });
+                constructor = REGISTRY[id].GetConstructor(new Type[] { typeof(ushort), typeof(ushort) });
                 return (BaseBlock) constructor.Invoke(new object[] { x, y });
             }
 

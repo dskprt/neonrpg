@@ -21,7 +21,7 @@ namespace neonrpg.IO.Impl {
             Console.SetWindowSize(width, height);
             Console.SetBufferSize(width, height);
 
-            Buffer = new string[120 * 30];
+            Buffer = new string[121 * 31];
             Handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
             uint mode;
@@ -36,7 +36,7 @@ namespace neonrpg.IO.Impl {
         }
 
         public override void Clear(Color color) {
-            string str = color.AsAnsiBackground() + " ";
+            string str = color.AsAnsiBackground() + color.AsAnsiForeground() + " ";
 
             Array.Fill(Buffer, str);
         }

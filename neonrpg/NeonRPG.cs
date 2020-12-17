@@ -32,7 +32,7 @@ namespace neonrpg {
             Running = true;
 
             SysCon.Clear();
-            Console = NeonConsole.GetConsole("win", 120, 30);
+            Console = NeonConsole.GetConsole("win", 121, 31);
             OpenScreen(new TitleScreen());
 
             //values = Enum.GetValues(typeof(ConsoleColor));

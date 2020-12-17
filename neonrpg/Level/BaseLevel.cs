@@ -7,11 +7,11 @@ namespace neonrpg.Level {
 
     class BaseLevel {
 
-        public uint Width { get; set; }
-        public uint Height { get; set; }
+        public ushort Width { get; set; }
+        public ushort Height { get; set; }
         public List<BaseBlock> Blocks { get; set; }
 
-        public BaseLevel(uint width, uint height, List<BaseBlock> blocks) {
+        public BaseLevel(ushort width, ushort height, List<BaseBlock> blocks) {
             this.Width = width;
             this.Height = height;
             this.Blocks = blocks;
