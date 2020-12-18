@@ -13,6 +13,6 @@ namespace neonrpg.Level {
             { ".nano", new NanoLevelFormat() }
         };
 
-        public abstract BaseLevel Parse(Stream stream);
+        public abstract BaseLevel Parse(byte[] data);
     }
 }

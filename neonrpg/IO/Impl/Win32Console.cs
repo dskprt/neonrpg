@@ -32,7 +32,7 @@ namespace neonrpg.IO.Impl {
 
             Array.Fill(Buffer, "");
 
-            WriteConsole(Handle, "\u001b[?25l", (uint)"\u001b[?25l".Length, out written, IntPtr.Zero);
+            WriteConsoleW(Handle, "\u001b[?25l", (uint)"\u001b[?25l".Length, out written, IntPtr.Zero);
         }
 
         public override void Clear(Color color) {
@@ -42,9 +42,9 @@ namespace neonrpg.IO.Impl {
         }
 
         public override void Draw() {
-            string buff = "\u001b[0;0H" + string.Join("", Buffer);
+            string buff = "\u001b[0;0H" + string.Concat(Buffer);
 
-            WriteConsole(Handle, buff, (uint)buff.Length, out written, IntPtr.Zero);
+            WriteConsoleW(Handle, buff, (uint)buff.Length, out written, IntPtr.Zero);
         }
 
         public override void DrawChar(char c, int x, int y, Color foreground, Color background) {
@@ -119,8 +119,8 @@ namespace neonrpg.IO.Impl {
             uint dwMode
         );
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        static extern bool WriteConsole(
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        static extern bool WriteConsoleW(
             IntPtr hConsoleOutput,
             string lpBuffer,
             uint nNumberOfCharsToWrite,

@@ -1,4 +1,5 @@
-﻿using neonrpg.Utilities;
+﻿using neonrpg.Entity.Entities;
+using neonrpg.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace neonrpg.Entity {
         public ushort X { get; set; }
         public ushort Y { get; set; }
 
-        public char Character { get; }
+        public char Character { get; set; }
         public Color Foreground { get; set; }
 
         public bool Interactable { get; }
@@ -31,9 +32,9 @@ namespace neonrpg.Entity {
         }
 
         public virtual void Render(int offsetX, int offsetY) {
-            NeonRPG.Console.DrawChar(Character, (int)(offsetX + X), (int)(offsetY + Y), Foreground, Color.TRANSPARENT);
+            NeonRPG.Console.DrawChar(Character, offsetX + X, offsetY + Y, Foreground, Color.TRANSPARENT);
         }
 
-        public virtual void Interact() { }
+        public virtual void Interact(EntityPlayer player) { }
     }
 }
