@@ -8,7 +8,7 @@ namespace neonrpg.Entity {
 
     class BaseEntity {
 
-        public uint Id { get; set; }
+        public byte Id { get; set; }
         public string Name { get; set; }
         public ushort X { get; set; }
         public ushort Y { get; set; }
@@ -20,7 +20,7 @@ namespace neonrpg.Entity {
 
         public byte Data { get; set; }
 
-        public BaseEntity(uint id, string name, ushort x, ushort y, char character, Color foreground, bool canInteract = false, byte data = 0) {
+        public BaseEntity(byte id, string name, ushort x, ushort y, char character, Color foreground, bool canInteract = false, byte data = 0) {
             Id = id;
             Name = name;
             X = x;

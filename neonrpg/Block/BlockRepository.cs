@@ -9,7 +9,7 @@ namespace neonrpg.Block {
     class BlockRepository {
 
         public static readonly Dictionary<byte, Type> REGISTRY = new Dictionary<byte, Type>() {
-            { 0, typeof(BlockGrass) }, { 1, typeof(BlockFlower) }, { 2, typeof(BlockBrick) }
+            { 0, typeof(BlockGrass) }, { 1, typeof(BlockFlower) }, { 2, typeof(BlockBrick) }, { 255, typeof(BlockAir) }
         };
 
         public static BaseBlock CreateFromId(byte id, ushort x, ushort y, byte data = 0) {

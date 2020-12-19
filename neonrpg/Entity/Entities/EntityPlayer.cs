@@ -67,7 +67,9 @@ namespace neonrpg.Entity.Entities {
                         case Facing.NORTH:
                             index = ((this.Y - 1) * level.Width) + this.X;
 
-                            if(level.Entities[index] != null) {
+                            if (!(index >= 0 && index < level.Entities.Count)) return;
+
+                            if (level.Entities[index] != null) {
                                 if(level.Entities[index].Interactable) {
                                     level.Entities[index].Interact(this);
                                 }
@@ -75,6 +77,8 @@ namespace neonrpg.Entity.Entities {
                             break;
                         case Facing.EAST:
                             index = (this.Y * level.Width) + (this.X + 1);
+
+                            if (!(index >= 0 && index < level.Entities.Count)) return;
 
                             if (level.Entities[index] != null) {
                                 if (level.Entities[index].Interactable) {
@@ -85,6 +89,8 @@ namespace neonrpg.Entity.Entities {
                         case Facing.SOUTH:
                             index = ((this.Y + 1) * level.Width) + this.X;
 
+                            if (!(index >= 0 && index < level.Entities.Count)) return;
+
                             if (level.Entities[index] != null) {
                                 if (level.Entities[index].Interactable) {
                                     level.Entities[index].Interact(this);
@@ -93,6 +99,8 @@ namespace neonrpg.Entity.Entities {
                             break;
                         case Facing.WEST:
                             index = (this.Y * level.Width) + (this.X - 1);
+
+                            if (!(index >= 0 && index < level.Entities.Count)) return;
 
                             if (level.Entities[index] != null) {
                                 if (level.Entities[index].Interactable) {

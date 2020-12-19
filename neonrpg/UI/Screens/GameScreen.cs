@@ -15,7 +15,7 @@ namespace neonrpg.UI.Screens {
         private int y;
 
         public override void Initialize() {
-            Level = Levels.LoadLevelByName("world");
+            Level = Levels.LoadLevelFromResources("world");
             x = (NeonRPG.Console.Width / 2 - Level.Width / 2);
             y = (NeonRPG.Console.Height / 2 - Level.Height / 2);
 
