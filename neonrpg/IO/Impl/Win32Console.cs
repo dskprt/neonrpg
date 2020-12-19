@@ -11,6 +11,10 @@ namespace neonrpg.IO.Impl {
     class Win32Console : NeonConsole {
 
         private static readonly StringBuilder sb = new StringBuilder();
+        private static readonly COORD zero = new COORD() {
+            X = 0,
+            Y = 0
+        };
 
         private static uint written;
 
@@ -32,7 +36,13 @@ namespace neonrpg.IO.Impl {
 
             Array.Fill(Buffer, "");
 
-            WriteConsoleW(Handle, "\u001b[?25l", (uint)"\u001b[?25l".Length, out written, IntPtr.Zero);
+            Console.Write("\u001b[?25l");
+        }
+
+        public override void Close() {
+            Console.ResetColor();
+            Console.Write("\u001b[2J");
+            Console.Write("\u001b[?25h");
         }
 
         public override void Clear(Color color) {
@@ -42,8 +52,9 @@ namespace neonrpg.IO.Impl {
         }
 
         public override void Draw() {
-            string buff = "\u001b[0;0H" + string.Concat(Buffer);
+            string buff = string.Concat(Buffer);
 
+            SetConsoleCursorPosition(Handle, zero);
             WriteConsoleW(Handle, buff, (uint)buff.Length, out written, IntPtr.Zero);
         }
 
@@ -126,6 +137,18 @@ namespace neonrpg.IO.Impl {
             uint nNumberOfCharsToWrite,
             out uint lpNumberOfCharsWritten,
             IntPtr lpReserved
+        );
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct COORD {
+            public short X;
+            public short Y;
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool SetConsoleCursorPosition(
+            IntPtr hConsoleOutput,
+            COORD dwCursorPosition
         );
     }
 }

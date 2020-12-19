@@ -8,13 +8,7 @@ namespace neonrpg.Level {
     class Levels {
 
         public static BaseLevel LoadLevelFromResources(string name, string format = ".nano") {
-            return LevelFormat.FORMATS[format].Parse((byte[]) Properties.Resources.ResourceManager.GetObject(name));
-        }
-
-        public static BaseLevel LoadLevelFromFile(string file) {
-            string extension = Path.GetExtension(file);
-
-            return LevelFormat.FORMATS[extension].Parse(File.ReadAllBytes(file));
+            return LevelFormat.FORMATS[format].Parse(name, (byte[]) Properties.Resources.ResourceManager.GetObject(name));
         }
     }
 }

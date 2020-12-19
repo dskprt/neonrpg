@@ -31,5 +31,6 @@ namespace neonrpg.IO {
         public abstract void Fill(char c, int x, int y, int w, int h, Color color);
         public abstract void Draw();
         public abstract void Clear(Color color);
+        public abstract void Close();
     }
 }

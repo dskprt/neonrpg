@@ -69,10 +69,7 @@ namespace neonrpg {
 
         public static void Shutdown() {
             Running = false;
-
-            SysCon.Write("\u001b[?25h");
-            SysCon.Write("\u001b[0m");
-            SysCon.Write("\u001b[2J");
+            Console.Close();
         }
     }
 }

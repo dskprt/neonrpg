@@ -1,4 +1,5 @@
 ﻿using neonrpg.Entity.Entities;
+using neonrpg.Level;
 using neonrpg.Utilities;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,6 @@ namespace neonrpg.Entity {
             NeonRPG.Console.DrawChar(Character, offsetX + X, offsetY + Y, Foreground, Color.TRANSPARENT);
         }
 
-        public virtual void Interact(EntityPlayer player) { }
+        public virtual void Interact(ref BaseLevel level) { }
     }
 }

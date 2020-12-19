@@ -63,9 +63,19 @@ namespace neonrpg.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] world {
+        internal static byte[] doors {
             get {
-                object obj = ResourceManager.GetObject("world", resourceCulture);
+                object obj = ResourceManager.GetObject("doors", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] doors_42 {
+            get {
+                object obj = ResourceManager.GetObject("doors_42", resourceCulture);
                 return ((byte[])(obj));
             }
         }

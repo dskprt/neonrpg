@@ -14,7 +14,7 @@ namespace neonrpg.Entity.Entities {
             Facing = Facing.NORTH;
         }
 
-        public void Input(ConsoleKeyInfo keyInfo, BaseLevel level, ref int X, ref int Y) {
+        public void Input(ConsoleKeyInfo keyInfo, ref BaseLevel level, ref int X, ref int Y) {
             int index;
 
             switch (keyInfo.Key) {
@@ -71,7 +71,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (level.Entities[index] != null) {
                                 if(level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(this);
+                                    level.Entities[index].Interact(ref level);
+                                    break;
+                                }
+                            }
+
+                            if (level.Blocks[index] != null) {
+                                if (level.Blocks[index].Interactable) {
+                                    level.Blocks[index].Interact(ref level);
                                 }
                             }
                             break;
@@ -82,7 +89,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (level.Entities[index] != null) {
                                 if (level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(this);
+                                    level.Entities[index].Interact(ref level);
+                                    break;
+                                }
+                            }
+
+                            if (level.Blocks[index] != null) {
+                                if (level.Blocks[index].Interactable) {
+                                    level.Blocks[index].Interact(ref level);
                                 }
                             }
                             break;
@@ -93,7 +107,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (level.Entities[index] != null) {
                                 if (level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(this);
+                                    level.Entities[index].Interact(ref level);
+                                    break;
+                                }
+                            }
+
+                            if (level.Blocks[index] != null) {
+                                if (level.Blocks[index].Interactable) {
+                                    level.Blocks[index].Interact(ref level);
                                 }
                             }
                             break;
@@ -104,7 +125,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (level.Entities[index] != null) {
                                 if (level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(this);
+                                    level.Entities[index].Interact(ref level);
+                                    break;
+                                }
+                            }
+
+                            if (level.Blocks[index] != null) {
+                                if (level.Blocks[index].Interactable) {
+                                    level.Blocks[index].Interact(ref level);
                                 }
                             }
                             break;

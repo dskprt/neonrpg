@@ -1,4 +1,6 @@
-﻿using neonrpg.Utilities;
+﻿using neonrpg.Entity.Entities;
+using neonrpg.Level;
+using neonrpg.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,6 +40,6 @@ namespace neonrpg.Block {
             NeonRPG.Console.DrawChar(Character, offsetX + X, offsetY + Y, Foreground, Background);
         }
 
-        public virtual void Interact() { }
+        public virtual void Interact(ref BaseLevel level) { }
     }
 }

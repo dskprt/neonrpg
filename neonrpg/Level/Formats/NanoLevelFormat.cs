@@ -14,7 +14,7 @@ namespace neonrpg.Level.Formats {
         private static readonly byte[] ENTITIES_START_MAGIC = { 149, 151, 147, 153 };
 
         // awful code
-        public override BaseLevel Parse(byte[] buffer) {
+        public override BaseLevel Parse(string name, byte[] buffer) {
             if(!buffer.Take(MAGIC.Length).SequenceEqual(MAGIC)) {
                 throw new InvalidDataException("Bad magic.");
             }
@@ -130,7 +130,7 @@ namespace neonrpg.Level.Formats {
                     throw new InvalidDataException("Unknown version.");
             }
 
-            return new BaseLevel(width, height, blocks, entities, spawnCoordinates);
+            return new BaseLevel(name, width, height, blocks, entities, spawnCoordinates);
         }
     }
 }
