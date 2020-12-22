@@ -3,6 +3,7 @@ using neonrpg.Entity;
 using neonrpg.Entity.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace neonrpg.Level {
@@ -30,9 +31,14 @@ namespace neonrpg.Level {
             this.Entities.Insert(0, this.Player);
         }
 
+        public void Initialize() {
+            this.Blocks.ForEach(block => block.Initialize(this));
+            this.Entities.ForEach(entity => entity?.Initialize(this));
+        }
+
         public void Render(int offsetX, int offsetY) {
             this.Blocks.ForEach(block => block.Render(offsetX, offsetY));
-            this.Entities.ForEach(entity => { if (entity != null) entity.Render(offsetX, offsetY); });
+            this.Entities.ForEach(entity => entity?.Render(offsetX, offsetY));
         }
 
         public void Replace(BaseLevel level) {

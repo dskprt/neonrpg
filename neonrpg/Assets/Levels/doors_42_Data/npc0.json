@@ -1,0 +1,11 @@
+{
+  "type": 0,
+  "interaction": {
+    "items": [
+      {
+        "id": 0,
+        "price": 10
+      }
+    ]
+  }
+}

@@ -9,29 +9,35 @@ namespace neonrpg.UI.Screens {
 
     class GameScreen : Screen {
 
-        private BaseLevel level;
+        public BaseLevel level;
 
         private int x;
         private int y;
 
         public override void Initialize() {
-            level = Levels.LoadLevelFromResources("doors");
-            x = (NeonRPG.Console.Width / 2 - level.Width / 2);
-            y = (NeonRPG.Console.Height / 2 - level.Height / 2);
+            this.level = Levels.LoadLevelFromResources("doors");
+            this.level.Initialize();
+
+            x = (NeonRPG.Console.Width / 2 - this.level.Width / 2);
+            y = (NeonRPG.Console.Height / 2 - this.level.Height / 2);
 
             base.Initialize();
         }
 
         public override void Render() {
-            level.Render(x, y);
+            this.level.Render(x, y);
 
-            NeonRPG.Console.DrawString("X: " + level.Player.X + ", Y: " + level.Player.Y, 0, 1, Color.GREEN, Color.BLACK);
+            NeonRPG.Console.DrawString("X: " + this.level.Player.X + ", Y: " + this.level.Player.Y, 0, 1, Color.GREEN, Color.BLACK);
+
+            if(this.level.Player.Item != null) {
+                NeonRPG.Console.DrawChar('!', 0, 2, Color.GREEN, Color.BLACK);
+            }
 
             base.Render();
         }
 
         public override void Input(ConsoleKeyInfo keyInfo) {
-            level.Player.Input(keyInfo, ref level, ref x, ref y);
+            this.level.Player.Input(keyInfo, ref this.level, ref x, ref y);
 
             base.Input(keyInfo);
         }

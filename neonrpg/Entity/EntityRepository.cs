@@ -9,7 +9,7 @@ namespace neonrpg.Entity {
     class EntityRepository {
 
         public static readonly Dictionary<byte, Type> REGISTRY = new Dictionary<byte, Type>() {
-            { 0, typeof(EntityPlayer) }
+            { 0, typeof(EntityPlayer) }, { 1, typeof(EntityNPC) }
         };
 
         public static BaseEntity CreateFromId(byte id, ushort x, ushort y, byte data = 0) {

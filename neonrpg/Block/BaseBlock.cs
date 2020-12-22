@@ -36,6 +36,8 @@ namespace neonrpg.Block {
             Data = data;
         }
 
+        public virtual void Initialize(BaseLevel level) { }
+
         public void Render(int offsetX, int offsetY) {
             NeonRPG.Console.DrawChar(Character, offsetX + X, offsetY + Y, Foreground, Background);
         }

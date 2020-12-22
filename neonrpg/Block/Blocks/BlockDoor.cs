@@ -49,6 +49,7 @@ namespace neonrpg.Block.Blocks {
 
             door = this;
             level = lvl;
+            level.Initialize();
         }
     }
 }

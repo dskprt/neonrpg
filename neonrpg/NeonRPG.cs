@@ -8,6 +8,7 @@ using System.Threading;
 
 using SysCon = System.Console;
 using neonrpg.Utilities;
+using neonrpg.Level;
 
 namespace neonrpg {
 

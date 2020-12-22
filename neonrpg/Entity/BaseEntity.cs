@@ -32,6 +32,8 @@ namespace neonrpg.Entity {
             Data = data;
         }
 
+        public virtual void Initialize(BaseLevel level) { }
+
         public virtual void Render(int offsetX, int offsetY) {
             NeonRPG.Console.DrawChar(Character, offsetX + X, offsetY + Y, Foreground, Color.TRANSPARENT);
         }

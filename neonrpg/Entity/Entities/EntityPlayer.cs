@@ -1,4 +1,5 @@
-﻿using neonrpg.Level;
+﻿using neonrpg.Item;
+using neonrpg.Level;
 using neonrpg.Utilities;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,11 @@ namespace neonrpg.Entity.Entities {
     class EntityPlayer : BaseEntity {
 
         public Facing Facing { get; set; }
+        public BaseItem Item { get; set; }
 
         public EntityPlayer(ushort x, ushort y) : base(0, "Player", x, y, '⮝', new Color("200", "180", "0")) {
             Facing = Facing.NORTH;
+            Item = null;
         }
 
         public void Input(ConsoleKeyInfo keyInfo, ref BaseLevel level, ref int X, ref int Y) {
@@ -24,7 +27,8 @@ namespace neonrpg.Entity.Entities {
                     if (this.Y - 1 < 0) return;
 
                     index = ((this.Y - 1) * level.Width) + this.X;
-                    if (!level.Blocks[index].WalkableThrough || level.Entities[index] != null) return;
+                    //                                                               + 1 because the 0th entity is the player - we don't want to count it
+                    if (!level.Blocks[index].WalkableThrough || level.Entities[index + 1] != null) return;
 
                     Y++;
                     this.Y--;
@@ -35,7 +39,8 @@ namespace neonrpg.Entity.Entities {
                     if (this.Y + 1 > level.Height - 1) return;
 
                     index = ((this.Y + 1) * level.Width) + this.X;
-                    if (!level.Blocks[index].WalkableThrough || level.Entities[index] != null) return;
+                    //                                                               + 1 because the 0th entity is the player - we don't want to count it
+                    if (!level.Blocks[index].WalkableThrough || level.Entities[index + 1] != null) return;
 
                     Y--;
                     this.Y++;
@@ -46,7 +51,8 @@ namespace neonrpg.Entity.Entities {
                     if (this.X - 1 < 0) return;
 
                     index = (this.Y * level.Width) + (this.X - 1);
-                    if (!level.Blocks[index].WalkableThrough || level.Entities[index] != null) return;
+                    //                                                               + 1 because the 0th entity is the player - we don't want to count it
+                    if (!level.Blocks[index].WalkableThrough || level.Entities[index + 1] != null) return;
 
                     X++;
                     this.X--;
@@ -57,7 +63,8 @@ namespace neonrpg.Entity.Entities {
                     if (this.X + 1 > level.Width - 1) return;
 
                     index = (this.Y * level.Width) + (this.X + 1);
-                    if (!level.Blocks[index].WalkableThrough || level.Entities[index] != null) return;
+                    //                                                               + 1 because the 0th entity is the player - we don't want to count it
+                    if (!level.Blocks[index].WalkableThrough || level.Entities[index + 1] != null) return;
 
                     X--;
                     this.X++;
@@ -69,17 +76,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (!(index >= 0 && index < level.Entities.Count)) return;
 
-                            if (level.Entities[index] != null) {
-                                if(level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(ref level);
-                                    break;
-                                }
+                            //                       + 1 because the 0th entity is the player - we don't want to count it
+                            if (level.Entities[index + 1]?.Interactable == true) {
+                                level.Entities[index + 1]?.Interact(ref level);
+                                break;
                             }
 
-                            if (level.Blocks[index] != null) {
-                                if (level.Blocks[index].Interactable) {
-                                    level.Blocks[index].Interact(ref level);
-                                }
+                            if (level.Blocks[index]?.Interactable == true) {
+                                level.Blocks[index]?.Interact(ref level);
                             }
                             break;
                         case Facing.EAST:
@@ -87,17 +91,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (!(index >= 0 && index < level.Entities.Count)) return;
 
-                            if (level.Entities[index] != null) {
-                                if (level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(ref level);
-                                    break;
-                                }
+                            //                       + 1 because the 0th entity is the player - we don't want to count it
+                            if (level.Entities[index + 1]?.Interactable == true) {
+                                level.Entities[index + 1]?.Interact(ref level);
+                                break;
                             }
 
-                            if (level.Blocks[index] != null) {
-                                if (level.Blocks[index].Interactable) {
-                                    level.Blocks[index].Interact(ref level);
-                                }
+                            if (level.Blocks[index]?.Interactable == true) {
+                                level.Blocks[index]?.Interact(ref level);
                             }
                             break;
                         case Facing.SOUTH:
@@ -105,17 +106,14 @@ namespace neonrpg.Entity.Entities {
 
                             if (!(index >= 0 && index < level.Entities.Count)) return;
 
-                            if (level.Entities[index] != null) {
-                                if (level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(ref level);
-                                    break;
-                                }
+                            //                       + 1 because the 0th entity is the player - we don't want to count it
+                            if (level.Entities[index + 1]?.Interactable == true) {
+                                level.Entities[index + 1]?.Interact(ref level);
+                                break;
                             }
 
-                            if (level.Blocks[index] != null) {
-                                if (level.Blocks[index].Interactable) {
-                                    level.Blocks[index].Interact(ref level);
-                                }
+                            if (level.Blocks[index]?.Interactable == true) {
+                                level.Blocks[index]?.Interact(ref level);
                             }
                             break;
                         case Facing.WEST:
@@ -123,20 +121,24 @@ namespace neonrpg.Entity.Entities {
 
                             if (!(index >= 0 && index < level.Entities.Count)) return;
 
-                            if (level.Entities[index] != null) {
-                                if (level.Entities[index].Interactable) {
-                                    level.Entities[index].Interact(ref level);
-                                    break;
-                                }
+                            //                       + 1 because the 0th entity is the player - we don't want to count it
+                            if (level.Entities[index + 1]?.Interactable == true) {
+                                level.Entities[index + 1]?.Interact(ref level);
+                                break;
                             }
 
-                            if (level.Blocks[index] != null) {
-                                if (level.Blocks[index].Interactable) {
-                                    level.Blocks[index].Interact(ref level);
-                                }
+                            if (level.Blocks[index]?.Interactable == true) {
+                                level.Blocks[index]?.Interact(ref level);
                             }
                             break;
                     }
+
+                    break;
+                case ConsoleKey.R:
+                    Item?.Use(this);
+                    break;
+                case ConsoleKey.D1:
+                    Item = (Item == null ? new Item.Items.ItemDummy() : null);
 
                     break;
             }
